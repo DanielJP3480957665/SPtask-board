@@ -1,5 +1,9 @@
+@extends('layouts.app')
+@section('content')
 <!doctype html>
 <html lang="ja">
+  
+  
   <head>
     <title>達成率が上がるToDoリスト</title>
     <!-- 必要なメタタグ -->
@@ -42,7 +46,7 @@
         <td><form action="{{url('/tasks',$task->id)}}"method="post">
            {{ csrf_field() }}
            {{ method_field('delete') }}
-           <button type="submit" class="btn text-danger">完了</button>
+           <button type="submit" class="btn btn-primary">完了</button>
          </form>
          </td>
          <!-- 削除した際にポップ画面で確認をする -->
@@ -87,5 +91,5 @@
       
       
     </script>
-  </body>
+  </body>//endsection
 </html>

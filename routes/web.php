@@ -15,10 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+//ユーザー認証
+Route::group(['middleware' => ['auth']],function(){
+    Route::resource('tasks','TasksController',['only' => ['index','show']]);
+});
+
 
 Route::get('/', 'TasksController@index');
 Route::resource('tasks','TasksController');
-
+Route::get('/home','HomeController@index');
 
 Auth::routes();
 

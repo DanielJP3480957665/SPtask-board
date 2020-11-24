@@ -17,14 +17,10 @@ Route::get('/', function () {
 */
 //ユーザー認証
 Route::group(['middleware' => ['auth']],function(){
-    Route::resource('tasks','TasksController',['only' => ['index','show']]);
+    Route::resource('tasks','TasksController',['only' => ['index','store','edit','update','destroy']]);
 });
 
-
 Route::get('/', 'TasksController@index');
-Route::resource('tasks','TasksController');
-Route::get('/home','HomeController@index');
-
 Auth::routes();
 
 

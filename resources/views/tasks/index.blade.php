@@ -3,35 +3,55 @@
 
 
     <div class="container" style="margin-top:50px;">
-      <h1>ToDoリストの追加</h1>
       
-      <form action ='{{url('/tasks')}}' method="post">
-        {{csrf_field()}}
-        <div class="form-group">
-          <label> やることを追加してください </label>
-          <input type="text" name="body" class ="form-control" placeholder="筋トレ　予想困難度80　予想満足度75,
-          " style="max-with:1000px;"/>
-        </div>
-        
-       </form>
-      <h1 style="margin-top:50px;">Todoリスト</h1>
+      
+     
+      <h1 style="margin-top:50px;">ifthen woop list</h1>
+      <form action="{{ action('TasksController@create') }}" method="post">
+          {{ csrf_field() }}
+          {{ method_field('get') }}
+          <div class="text-left">
+          <button type="submit" class="btn btn-primary">create</button>
+          </div>
+      </form>
       <table class="table table-striped" style="max-width:1000px; margin-top:20px;">
      
-       @foreach ($tasks as $task)
+       
        <!--編集ボタン-->
+       @foreach ($tasks as $task)
        <tr>
-         <td>{{$task->body}}</td>
+        <tr>
+            <td>{{$task->wish}}</td>
+        </tr>
+         
+        <tr>
+            <td>{{$task->outcome}}</td>
+        </tr>
+        
+        <tr>
+            <td>{{$task->obstacle}}</td>
+        </tr>
+        
+        <tr>
+            <td>{{$task->ifthenplan}}</td>
+        </tr>
+         
       <td><form action="{{ action('TasksController@edit', $task) }}" method="post">
           {{ csrf_field() }}
           {{ method_field('get') }}
-          <button type="submit" class="btn btn-primary">編集</button>
+          <div class="text-right">
+          <button type="submit" class="btn btn-primary">edit</button>
+          </div>
       </form>
       </td>
+      
       <!--完了ボタン-->
         <td><form action="{{url('/tasks',$task->id)}}"method="post">
            {{ csrf_field() }}
            {{ method_field('delete') }}
-           <button type="submit" class="btn btn-primary">完了</button>
+           <div class="text-right">
+          <button type="submit" class="btn btn-danger">delete</button>
+          </div>
          </form>
          </td>
          

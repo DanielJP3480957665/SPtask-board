@@ -1,26 +1,33 @@
-<!doctype html>
-<html lang="ja">
-  <head>
-    <title>Jum Todoリスト</title>
-  <!-- 必要なメタタグ -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  </head>
+@extends('layouts.app')
+@section('content')
 
-  <body>
+  
     <div class="container" style="margin-top:50px;">
-    <h1>Todoリスト更新</h1>
+      @if (count($errors) > 0)
+    <ul class="alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+            <li class="ml-4">{{ $error }}</li>
+        @endforeach
+    </ul>
+    @endif
+    <h1>if then woop list<h1>
 
     <form action='{{ url('/tasks',$task->id) }}' method="post">
       {{csrf_field()}}
       {{ method_field('patch')}}
-  <div class="form-group">
-    <label >やることを更新してください</label>
-    <input type="text" name="body"class="form-control" value="{{ $task->body }}" style="max-width:1000px;">
+   <div class="form-group">
+    
+    <label>wish</label>
+    <input type="text" name="wish"class="form-control" value="{{ $task->wish }}" style="max-width:1000px">
+    <label>outcome</label>
+    <input type="text" name="outcome"class="form-control" value="{{ $task->outcome }}" style="max-width:1000px">
+    <label>obstacle</label>
+    <input type="text" name="obstacle"class="form-control" value="{{ $task->obstacle }}" style="max-width:1000px">
+    <label>ifthenplan</label>
+    <input type="text" name="ifthenplan"class="form-control" value="{{ $task->ifthenplan }}" style="max-width:1000px">
+    
   </div>
-  <button type="submit" class="btn btn-primary">更新する</button>
+  <button type="submit" class="btn btn-primary" style="max-width:1000px">更新する</button>
 </form>
 
 </div>
@@ -47,5 +54,6 @@
 
 })();
 </script>
-  </body>
-</html>
+ 
+
+@endsection

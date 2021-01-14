@@ -19,29 +19,45 @@ class TasksController extends Controller
         $data = [
           'user' =>$user,
           'tasks'=>$tasks,
+          
           ];
       }
       return view('tasks.index',$data);
   }
-  
-  //todo追加する処理
+  //getでされた時の処理
+  public function create()
+    {
+        $task = new Task;
+
+        return view('tasks.create', [
+            'task' => $task,
+        ]);
+    }
+    
+  //postされた時の処理
   public function store(Request $request){
+    
+    $this->validate($request, [
+            'wish' => 'required|max:191',
+            'outcome' => 'required|max:191',
+            'obstacle' => 'required|max:191',
+            'ifthenplan' => 'required|max:191',
+        ]);
     
     $task = new Task;
     $task->user_id = \Auth::id();
-    $task->body = $request->body;
-    $task->save();
+    $task->wish =     $request->wish;
+    $task->outcome=   $request->outcome;
+    $task->obstacle=  $request->obstacle;
+    $task->ifthenplan=$request->ifthenplan;
     
+    $task->save();
     return redirect('/');
   }
-  //削除処理
-  public function destroy (task $task) {
-    $task->delete();
-    return redirect('/');
-  }
+  
   //編集画面の変移処理
-  public function edit($id){
-    $task =Task::find($id);
+  public function edit(task $task){
+    
         
         if(\Auth::id() != $task->user_id){
             return redirect('/');
@@ -53,12 +69,35 @@ class TasksController extends Controller
   }
   //更新処理
   public function update (Request $request,task $task){
-    $task->body =$request->body;
+   
+    $this->validate($request, [
+     'wish' => 'required|max:191',
+     'outcome' => 'required|max:191',
+     'obstacle' => 'required|max:191',
+     'ifthenplan' => 'required|max:191',
+    ]);
+    $task->user_id = \Auth::id();
+    $task->wish =     $request->wish;
+    $task->outcome=   $request->outcome;
+    $task->obstacle=  $request->obstacle;
+    $task->ifthenplan=$request->ifthenplan;
+    
     $task->save();
     return redirect('/');
   }
+ 
+    
+    public function destroy (task $task) {
+    if(\Auth::id() != $task->user_id){
+            return redirect('/');
+        }
+    $task->delete();
+    return redirect('/');
+  }
+    
+    
   //ユーザー認証
-  public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
     }
